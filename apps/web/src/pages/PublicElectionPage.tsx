@@ -55,21 +55,19 @@ export default function PublicElectionPage() {
     <div className="min-h-screen bg-paper">
       <div className="app-container py-8">
         {/* Header */}
-        <div className="col-span-12">
-          <div className="text-center space-y-4">
-            <h1 className="text-4xl font-bold">{election.title}</h1>
-            {getStatusBadge(election.status)}
-            {election.description && (
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                {election.description}
-              </p>
-            )}
-          </div>
+        <div className="col-span-full text-center space-y-4">
+          <h1 className="text-4xl font-bold">{election.title}</h1>
+          {getStatusBadge(election.status)}
+          {election.description && (
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              {election.description}
+            </p>
+          )}
         </div>
 
         {/* Voting CTA */}
         {election.status === 'open' && (
-          <div className="col-span-12 text-center mt-8">
+          <div className="col-span-full text-center mt-8">
             <Card>
               <CardContent className="py-8">
                 <h2 className="text-2xl font-bold mb-4">Ready to Vote?</h2>
@@ -86,7 +84,7 @@ export default function PublicElectionPage() {
 
         {/* Results Link */}
         {election.status === 'closed' && (
-          <div className="col-span-12 text-center mt-8">
+          <div className="col-span-full text-center mt-8">
             <Card>
               <CardContent className="py-8">
                 <h2 className="text-2xl font-bold mb-4">Voting Complete</h2>
@@ -107,7 +105,7 @@ export default function PublicElectionPage() {
         )}
 
         {/* Candidates */}
-        <div className="col-span-12 mt-12">
+        <div className="col-span-full mt-12">
           <h2 className="text-2xl font-bold mb-6 text-center">Candidates</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {candidates.map((candidate: any) => (
@@ -133,7 +131,7 @@ export default function PublicElectionPage() {
         </div>
 
         {/* Election Info */}
-        <div className="col-span-12 mt-12">
+        <div className="col-span-full mt-12">
           <Card>
             <CardHeader>
               <CardTitle>Election Details</CardTitle>

@@ -67,40 +67,36 @@ console.log('📁 Frontend dist exists:', existsSync(frontendDistPath));
 
 // Only serve static files if frontend dist exists
 if (frontendDistPath && existsSync(frontendDistPath)) {
-  app.use('/*', serveStatic({ 
-    root: frontendDistPath,
-    onNotFound: (path, c) => {
-      console.log('🔍 Static file not found:', path);
-      // For SPA routing, return index.html for non-API routes
-      if (!path.startsWith('/api/')) {
-        const indexPath = join(frontendDistPath, 'index.html');
-        console.log('📄 Serving index.html from:', indexPath);
-        console.log('📄 Index.html exists:', existsSync(indexPath));
-        if (existsSync(indexPath)) {
-          return c.html(Bun.file(indexPath));
-        }
-      }
+  // First serve static assets (JS, CSS, images, etc.)
+  app.use('/assets/*', serveStatic({ root: frontendDistPath }));
+  app.use('/vote.png', serveStatic({ root: frontendDistPath }));
+  
+  // SPA fallback route - serve index.html for all non-API routes
+  app.get('*', async (c) => {
+    const path = c.req.path;
+    console.log('🔍 Handling route:', path);
+    
+    // Skip API routes
+    if (path.startsWith('/api/') || path.startsWith('/health')) {
+      return c.notFound();
     }
-  }));
+    
+    // Serve index.html for all other routes (SPA routing)
+    const indexPath = join(frontendDistPath, 'index.html');
+    console.log('📄 Serving index.html from:', indexPath);
+    if (existsSync(indexPath)) {
+      const htmlContent = await Bun.file(indexPath).text();
+      return c.html(htmlContent);
+    } else {
+      return c.text('Frontend not found', 404);
+    }
+  });
 } else {
   console.log('⚠️ Frontend dist not found, serving API only');
 }
 
-// Fallback route for root path
-app.get('/', (c) => {
-  if (frontendDistPath && existsSync(join(frontendDistPath, 'index.html'))) {
-    return c.html(Bun.file(join(frontendDistPath, 'index.html')));
-  } else {
-    return c.json({ 
-      name: 'Tessera API',
-      version: '0.1.0',
-      description: 'Ranked choice voting API',
-      note: 'Frontend not found - API only mode'
-    });
-  }
-});
 
-const port = parseInt(process.env.PORT || '3000');
+const port = parseInt(process.env.PORT || '3001');
 
 console.log(`🚀 Tessera API starting on port ${port}`);
 

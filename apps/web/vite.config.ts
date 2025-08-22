@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
   
   // Default values
   const frontendPort = parseInt(env.VITE_PORT || '5173')
-  const apiTarget = env.VITE_API_URL || 'http://localhost:3000'
+  const apiTarget = env.VITE_API_URL || 'http://localhost:3001'
   
   return {
     plugins: [react()],
