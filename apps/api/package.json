@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
-    "build": "bun build src/index.ts --outdir dist",
-    "start": "bun dist/index.js",
+    "build": "echo 'No build needed - Bun runs TypeScript directly'",
+    "start": "bun src/index.ts",
     "typecheck": "tsc --noEmit",
     "migrate": "bun run src/db/migrate.ts",
     "test": "bun test"

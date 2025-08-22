@@ -1,0 +1,14 @@
+[phases.setup]
+nixPkgs = ['bun', 'nodejs']
+
+[phases.build]
+cmds = [
+  'bun install --production=false',
+  'npm run build'
+]
+
+[phases.start]
+cmd = 'cd apps/api && bun src/index.ts'
+
+[variables]
+NODE_ENV = 'production'

@@ -13,12 +13,12 @@
     "dev:web": "cd apps/web && npm run dev",
     "start:api": "cd apps/api && npm run start",
     "start:web": "cd apps/web && npm run start",
-    "build": "npm run build:counting && npm run build:api && npm run build:web",
+    "build": "npm run build:counting && npm run build:web && npm run build:api",
     "build:counting": "cd packages/counting && npm run build",
     "build:api": "cd apps/api && npm run build",
     "build:web": "cd apps/web && npm run build",
     "install": "npm run install:all",
-    "start": "npm run start:api && npm run start:web"
+    "start": "cd apps/api && bun src/index.ts"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

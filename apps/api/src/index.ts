@@ -1,5 +1,8 @@
 import { Hono } from 'hono';
 import { logger } from 'hono/logger';
+import { serveStatic } from 'hono/bun';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { handleError } from './lib/errors.js';
 import { initializeDatabase } from './db/database.js';
 import { organizerCors, publicCors } from './middleware/cors.js';
@@ -40,14 +43,18 @@ app.get('/health', (c) => {
   return c.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Default route
-app.get('/', (c) => {
-  return c.json({ 
-    name: 'Tessera API',
-    version: '0.1.0',
-    description: 'Ranked choice voting API'
-  });
-});
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const frontendDistPath = join(__dirname, '../../../web/dist');
+
+app.use('/*', serveStatic({ 
+  root: frontendDistPath,
+  onNotFound: (path, c) => {
+    // For SPA routing, return index.html for non-API routes
+    if (!path.startsWith('/api/')) {
+      return c.html(Bun.file(join(frontendDistPath, 'index.html')));
+    }
+  }
+}));
 
 const port = parseInt(process.env.PORT || '3000');
 
