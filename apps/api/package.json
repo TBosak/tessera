@@ -1,0 +1,31 @@
+{
+  "name": "@tessera/api",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "build": "bun build src/index.ts --outdir dist",
+    "start": "bun dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "migrate": "bun run src/db/migrate.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@tessera/counting": "file:../../packages/counting",
+    "hono": "^4.0.0",
+    "@hono/zod-validator": "^0.2.0",
+    "zod": "^3.22.0",
+    "js-sha256": "^0.10.1",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "seedrandom": "^3.0.5",
+    "nodemailer": "latest"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/seedrandom": "^3.0.8",
+    "@types/nodemailer": "latest",
+    "typescript": "^5.0.0"
+  }
+}

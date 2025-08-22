@@ -1,0 +1,23 @@
+{
+  "name": "tessera",
+  "version": "0.1.0",
+  "description": "Ranked choice voting application",
+  "private": true,
+  "scripts": {
+    "install:all": "npm run install:counting && npm run install:api && npm run install:web",
+    "install:counting": "cd packages/counting && npm install",
+    "install:api": "cd apps/api && npm install",
+    "install:web": "cd apps/web && npm install",
+    "dev": "npm run dev:api & npm run dev:web",
+    "dev:api": "cd apps/api && npm run dev",
+    "dev:web": "cd apps/web && npm run dev",
+    "build": "npm run build:counting && npm run build:api && npm run build:web",
+    "build:counting": "cd packages/counting && npm run build",
+    "build:api": "cd apps/api && npm run build",
+    "build:web": "cd apps/web && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
