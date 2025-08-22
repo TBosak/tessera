@@ -21,7 +21,7 @@ export default function LoginPage() {
   const authMutation = useMutation({
     mutationFn: (data: { email: string; password: string }) => 
       isLogin ? authApi.login(data.email, data.password) : authApi.register(data.email, data.password),
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       if (isLogin) {
         addToast({
           variant: 'success',
@@ -50,7 +50,7 @@ export default function LoginPage() {
     },
     onError: (error: ApiError) => {
       if (error.fieldErrors) {
-        setErrors(error.fieldErrors);
+        setErrors(error.fieldErrors as Record<string, string>);
       } else {
         addToast({
           variant: 'error',

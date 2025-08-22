@@ -59,21 +59,25 @@ async function request<T>(
 }
 
 // Auth API
+// Auth response types
+export type LoginResponse = { user: { id: number; email: string } };
+export type RegisterResponse = { 
+  user: { id: number; email: string; email_verified: boolean }; 
+  message: string;
+  email_sent: boolean;
+  needs_verification: boolean;
+  verification_email_from?: string;
+};
+
 export const authApi = {
   login: (email: string, password: string) =>
-    request<{ user: { id: number; email: string } }>('/api/auth/login', {
+    request<LoginResponse>('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     }),
 
   register: (email: string, password: string) =>
-    request<{ 
-      user: { id: number; email: string; email_verified: boolean }; 
-      message: string;
-      email_sent: boolean;
-      needs_verification: boolean;
-      verification_email_from?: string;
-    }>('/api/auth/register', {
+    request<RegisterResponse>('/api/auth/register', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     }),
