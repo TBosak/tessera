@@ -7,7 +7,10 @@ import { platform } from 'os';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Ensure data directory exists
-const dbPath = process.env.DB_PATH || './data/tessera.sqlite';
+// Use Railway volume path if available, fallback to local data directory
+const dbPath = process.env.DB_PATH || (process.env.RAILWAY_VOLUME_MOUNT_PATH ? 
+  `${process.env.RAILWAY_VOLUME_MOUNT_PATH}/tessera.sqlite` : 
+  './data/tessera.sqlite');
 const dbDir = dirname(dbPath);
 if (!existsSync(dbDir)) {
   mkdirSync(dbDir, { recursive: true });
