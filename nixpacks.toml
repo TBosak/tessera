@@ -5,7 +5,7 @@ nixPkgs = ['bun', 'nodejs']
 cmd = 'bun install'
 
 [phases.build]
-cmd = 'bun run build'
+cmd = 'bun run build:counting && bun run build:web'
 
 [phases.start]
 cmd = 'bun run start'

@@ -12,7 +12,7 @@ import { queries, db } from '../db/database.js';
 import { requireAuth, requireVerifiedEmail } from '../middleware/auth.js';
 import { moderateRateLimit } from '../middleware/rateLimit.js';
 import { NotFoundError, ForbiddenError, ValidationError } from '../lib/errors.js';
-import { irv, seededOrder } from '@tessera/counting';
+import { irv, seededOrder } from '../lib/counting.js';
 
 const elections = new Hono();
 

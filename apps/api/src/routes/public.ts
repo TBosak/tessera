@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { queries } from '../db/database.js';
 import { lenientRateLimit } from '../middleware/rateLimit.js';
 import { NotFoundError, ValidationError } from '../lib/errors.js';
-import { irv, seededOrder } from '@tessera/counting';
+import { irv, seededOrder } from '../lib/counting.js';
 
 const publicRoutes = new Hono();
 
