@@ -73,15 +73,22 @@ export function initializeDatabase() {
     
     console.log('Database initialized with schema');
   }
+  
+  // Prepare queries after database is ready
+  prepareQueries();
+  console.log('✅ Database queries prepared');
 }
 
-// Prepare commonly used queries for better performance
-export const queries = {
-  // Users
-  getUserByEmail: db.query(`SELECT * FROM users WHERE email = ?`),
-  createUser: db.query(`INSERT INTO users (email, password_hash, email_verify_token) VALUES (?, ?, ?) RETURNING *`),
-  getUserByVerifyToken: db.query(`SELECT * FROM users WHERE email_verify_token = ?`),
-  verifyUserEmail: db.query(`UPDATE users SET email_verified_at = datetime('now'), email_verify_token = NULL WHERE id = ?`),
+// Queries object to be initialized after database setup
+export let queries: any = {};
+
+function prepareQueries() {
+  queries = {
+    // Users
+    getUserByEmail: db.query(`SELECT * FROM users WHERE email = ?`),
+    createUser: db.query(`INSERT INTO users (email, password_hash, email_verify_token) VALUES (?, ?, ?) RETURNING *`),
+    getUserByVerifyToken: db.query(`SELECT * FROM users WHERE email_verify_token = ?`),
+    verifyUserEmail: db.query(`UPDATE users SET email_verified_at = datetime('now'), email_verify_token = NULL WHERE id = ?`),
   
   // Elections
   getElectionBySlug: db.query(`SELECT * FROM elections WHERE slug = ?`),
@@ -132,7 +139,8 @@ export const queries = {
   insertRateLimit: db.query(`INSERT INTO rate_limits (key, window_ends_at, count) VALUES (?, ?, ?)`),
   updateRateLimit: db.query(`UPDATE rate_limits SET count = count + 1 WHERE key = ?`),
   cleanupRateLimits: db.query(`DELETE FROM rate_limits WHERE window_ends_at <= datetime('now')`)
-};
+  };
+}
 
 // Enhanced graceful shutdown for cross-platform compatibility
 function gracefulShutdown(signal: string) {
