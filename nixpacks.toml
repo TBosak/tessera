@@ -3,7 +3,7 @@ nixPkgs = ['bun', 'nodejs']
 
 [phases.build]
 cmds = [
-  'bun install --production=false',
+  'bun install',
   'npm run build'
 ]
 
