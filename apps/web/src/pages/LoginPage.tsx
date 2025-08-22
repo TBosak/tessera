@@ -50,7 +50,7 @@ export default function LoginPage() {
     },
     onError: (error: ApiError) => {
       if (error.fieldErrors) {
-        setErrors(error.fieldErrors as Record<string, string>);
+        setErrors(error.fieldErrors as any);
       } else {
         addToast({
           variant: 'error',
