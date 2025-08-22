@@ -11,10 +11,14 @@
     "dev": "npm run dev:api & npm run dev:web",
     "dev:api": "cd apps/api && npm run dev",
     "dev:web": "cd apps/web && npm run dev",
+    "start:api": "cd apps/api && npm run start",
+    "start:web": "cd apps/web && npm run start",
     "build": "npm run build:counting && npm run build:api && npm run build:web",
     "build:counting": "cd packages/counting && npm run build",
     "build:api": "cd apps/api && npm run build",
-    "build:web": "cd apps/web && npm run build"
+    "build:web": "cd apps/web && npm run build",
+    "install": "npm run install:all",
+    "start": "npm run start:api && npm run start:web"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
